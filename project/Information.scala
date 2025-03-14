@@ -6,7 +6,7 @@ object Information {
 
   val value: Seq[Def.Setting[?]] = Seq(
     Compile / compile := (Compile / compile).dependsOn(Compile / headerCreateAll).value,
-    organization      := "cn.dreamylost", //move to com.dreamylost
+    organization      := "cn.dreamylost", // move to com.dreamylost
     organizationName  := "SnapFlow",
     startYear         := Some(2025),
     description       := "SnapFlow",
