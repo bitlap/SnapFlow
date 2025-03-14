@@ -7,7 +7,7 @@ object Dependencies {
     val circe       = "0.14.10"
     val scalikejdbc = "4.0.0"
     val logback     = "1.5.17"
-    val sttpApispec = "1.11.18"
+    val sttp        = "1.11.18"
     val http4s      = "0.23.30"
     val config      = "1.4.3"
     val pureconfig  = "0.17.8"
@@ -16,16 +16,18 @@ object Dependencies {
   }
 
   lazy val dependencies: Seq[ModuleID] = Seq(
-    "com.typesafe"           % "config"          % Version.config withSources (),
-    "org.typelevel"         %% "cats-effect"     % Version.catsEffect withSources (),
-    "com.github.pureconfig" %% "pureconfig-core" % Version.pureconfig withSources (),
-    "org.http4s"            %% "http4s-dsl"      % Version.http4s withSources (),
-    "org.http4s"            %% "http4s-circe"    % Version.http4s withSources (),
-    "io.circe"              %% "circe-parser"    % Version.circe withSources (),
-    "io.circe"              %% "circe-generic"   % Version.circe withSources (),
-    "io.circe"              %% "circe-core"      % Version.circe withSources (),
-    "org.slf4j"              % "slf4j-api"       % Version.slf4jApi withSources (),
-    "org.slf4j"              % "slf4j-simple"    % Version.slf4jApi withSources (),
-    "ch.qos.logback"         % "logback-classic" % Version.logback withSources ()
+    "com.typesafe"                  % "config"              % Version.config withSources (),
+    "org.typelevel"                %% "cats-effect"         % Version.catsEffect withSources (),
+    "com.github.pureconfig"        %% "pureconfig-core"     % Version.pureconfig withSources (),
+    "org.http4s"                   %% "http4s-dsl"          % Version.http4s withSources (),
+    "org.http4s"                   %% "http4s-ember-server" % Version.http4s withSources (),
+    "org.http4s"                   %% "http4s-circe"        % Version.http4s withSources (),
+    "io.circe"                     %% "circe-parser"        % Version.circe withSources (),
+    "io.circe"                     %% "circe-generic"       % Version.circe withSources (),
+    "io.circe"                     %% "circe-core"          % Version.circe withSources (),
+    "org.slf4j"                     % "slf4j-api"           % Version.slf4jApi withSources (),
+    "ch.qos.logback"                % "logback-classic"     % Version.logback withSources (),
+    ("com.softwaremill.sttp.tapir" %% "tapir-http4s-server" % Version.sttp)
+      .exclude("org.slf4j", "slf4j-api") withSources ()
   )
 }
