@@ -38,7 +38,7 @@ object UserService {
   ) extends UserService[F] {
 
     override def getUserById(userId: String): F[Option[UserProfile]] =
-      log.info(userId + "config:" cfg) *> userRepository.getUserById(userId)
+      log.info(userId + "config:" + cfg) *> userRepository.getUserById(userId)
 
   }
 }
