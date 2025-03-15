@@ -13,7 +13,9 @@ object ProjectSetting {
       "-language:higherKinds",
       "-language:implicitConversions",
       "-language:postfixOps",
-      "-deprecation"
+      "-deprecation",
+      "-Xkind-projector:underscores",
+      "-Yretain-trees"
     ),
     autoAPIMappings          := true,
     version                  := (ThisBuild / version).value,

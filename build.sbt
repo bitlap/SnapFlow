@@ -1,18 +1,23 @@
 import scala.io.AnsiColor.*
 
-import Dependencies.Version
+import Dependencies.Versions
 import de.heikoseeberger.sbtheader.HeaderPlugin
 
 Global / onLoad := {
-  println(s"""$GREEN
+  println(raw"""$GREEN
              |$GREEN
-             |$GREEN  ________  _____  ___        __         _______        _______  ___        ______    __   __  ___ 
-             |$GREEN /"       )(\"   \\|"  \\      /""\\       |   __ "\\      /"     "||"  |      /    " \\  |"  |/  \\|  "|
-             |$GREEN(:   \\___/ |.\\   \\    |    /    \\      (. |__) :)    (: ______)||  |     // ____  \\ |'  /    \\:  |
-             |$GREEN \\___  \\   |: \\.   \\  |   /' /\\  \\     |:  ____/      \\/    |  |:  |    /  /    ) :)|: /'        |
-             |$GREEN  __/  \\  |.  \\    \\. |  //  __'  \\    (|  /          // ___)   \\  |___(: (____/ //  \\//  /\'    |
-             |$GREEN /" \\   :) |    \\    \\ | /   /  \\  \\  /|__/ \\        (:  (     ( \\_|:  \\        /   /   /  \\   |
-             |$GREEN(_______/   \\___|\\____\\)(___/    \\___)(_______)        \\__/      \\_______)\"_____/   |___/    \\___|
+             |$GREEN                                   ,-.----.            .--., ,--.'|                           
+             |$GREEN                 ,---,             \    /  \         ,--.'  \|  | :     ,---.           .---. 
+             |$GREEN  .--.--.    ,-+-. /  |            |   :    |        |  | /\/:  : '    '   ,'\         /. ./| 
+             |$GREEN /  /    '  ,--.'|'   |  ,--.--.   |   | .\ :        :  : :  |  ' |   /   /   |     .-'-. ' | 
+             |$GREEN|  :  /`./ |   |  ,"' | /       \  .   : |: |        :  | |-,'  | |  .   ; ,. :    /___/ \: | 
+             |$GREEN|  :  ;_   |   | /  | |.--.  .-. | |   |  \ :        |  : :/||  | :  '   | |: : .-'.. '   ' . 
+             |$GREEN \  \    `.|   | |  | | \__\/: . . |   : .  |        |  |  .''  : |__'   | .; :/___/ \:     ' 
+             |$GREEN  `----.   \   | |  |/  ," .--.; | :     |`-'        '  : '  |  | '.'|   :    |.   \  ' .\    
+             |$GREEN /  /`--'  /   | |--'  /  /  ,.  | :   : :           |  | |  ;  :    ;\   \  /  \   \   ' \ | 
+             |$GREEN'--'.     /|   |/     ;  :   .'   \|   | :           |  : \  |  ,   /  `----'    \   \  |--"  
+             |$GREEN  `--'---' '---'      |  ,     .-./`---'.|           |  |,'   ---`-'              \   \ |     
+             |$GREEN                       `--`---'      `---`           `--'                          '---"      
              |$GREEN                                                                                                   
              |$GREEN
              |$RESET        v.${version.value}
@@ -23,7 +28,7 @@ Global / onLoad := {
 ThisBuild / resolvers ++= Seq(
   "New snapshots" at "https://s01.oss.sonatype.org/content/repositories/snapshots/"
 ) ++ Resolver.sonatypeOssRepos("snapshots")
-ThisBuild / scalaVersion := Version.scala
+ThisBuild / scalaVersion := Versions.scala
 
 lazy val commonConfiguration: Project => Project =
   _.settings(Information.value)
