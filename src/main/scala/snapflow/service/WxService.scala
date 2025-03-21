@@ -55,7 +55,7 @@ object WxService {
   final class Impl[F[_]](wxConfig: WxMiniCfg)(implicit F: Sync[F])
       extends Lifecycle.Of[F, WxService](
         Lifecycle.fromCats {
-          Resource.pure(createWxServiceImpl(wxConfig)).map(WxService.apply)
+          Resource.eval(F.blocking(WxService(createWxServiceImpl(wxConfig))))
         }
       )
 
