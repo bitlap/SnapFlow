@@ -25,6 +25,8 @@ import org.typelevel.log4cats.slf4j.Slf4jLogger
 
 import cats.*
 import cats.effect.{ Async, Concurrent, IO, Sync }
+import cats.effect.Ref
+import cn.binarywang.wx.miniapp.api.impl.WxMaServiceImpl
 import distage.{ ModuleDef, Scene, TagK }
 import distage.StandardAxis.Repo
 import doobie.Transactor
@@ -54,7 +56,7 @@ object AppModule {
       make[HomeService[F]].from[HomeService.Impl[F]]
       make[UserService[F]].from[UserService.Impl[F]]
       make[PhotoService[F]].from[PhotoService.Impl[F]]
-      make[WechatMiniService[F]].from[WechatMiniService.Impl[F]]
+      make[WxMiniService[F]].from[WxMiniService.Impl[F]]
       make[UserApi[F]]
       many[HttpApi[F]].weak[UserApi[F]]
       makeTrait[Http4sDsl[F]]
@@ -78,10 +80,14 @@ object AppModule {
       make[PostgresCfg].fromValue {
         ConfigSource.default.at("postgres").loadOrThrow[PostgresCfg]
       }
+      make[WxMiniCfg].fromValue {
+        ConfigSource.default.at("wx.miniapp").loadOrThrow[WxMiniCfg]
+      }
     }
 
     def utils[F[_]: {TagK, Sync}]: ModuleDef = new ModuleDef {
       make[Logger[F]].from(Slf4jLogger.getLogger[F])
+      make[WxService].fromResource[WxService.Impl[F]]
     }
   }
 }

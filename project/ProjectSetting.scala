@@ -15,7 +15,8 @@ object ProjectSetting {
       "-language:postfixOps",
       "-deprecation",
       "-Xkind-projector:underscores",
-      "-Yretain-trees"
+      "-Yretain-trees",
+      "-Xmax-inlines:64"
     ),
     autoAPIMappings          := true,
     version                  := (ThisBuild / version).value,

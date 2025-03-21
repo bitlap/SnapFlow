@@ -26,7 +26,7 @@ import cn.binarywang.wx.miniapp.api.impl.WxMaServiceImpl
 import cn.binarywang.wx.miniapp.util.WxMaConfigHolder
 import snapflow.model.wxmini.*
 
-trait WechatMiniService[F[_]]:
+trait WxMiniService[F[_]]:
 
   def wxUserSafelyOps[A](wxCall: () => A): F[A]
 
@@ -49,10 +49,10 @@ trait WechatMiniService[F[_]]:
     iv: String
   ): F[UserInfo]
 
-object WechatMiniService {
-  private val wxMaService = new WxMaServiceImpl()
+object WxMiniService {
 
-  final class Impl[F[_]](implicit F: Sync[F]) extends WechatMiniService[F] {
+  final class Impl[F[_]](wxService: WxService)(implicit F: Sync[F]) extends WxMiniService[F] {
+    private final lazy val wxMaService = wxService.underlying
 
     override def wxUserSafelyOps[A](wxCall: () => A): F[A] = {
       F.blocking {
@@ -75,7 +75,9 @@ object WechatMiniService {
       } yield ()
 
     override def createQrCodeUnlimt(scene: String, page: String): F[File] = {
-      F.delay(wxMaService.getQrcodeService.createWxaCodeUnlimit(scene, page))
+      for {
+        file <- F.delay(wxMaService.getQrcodeService.createWxaCodeUnlimit(scene, page))
+      } yield file
     }
 
     override def sessionInfo(appid: String, code: String): F[SessionResult] = {
