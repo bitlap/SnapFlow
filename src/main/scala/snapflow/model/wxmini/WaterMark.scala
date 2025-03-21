@@ -15,10 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package snapflow.service
+package snapflow.model.wxmini
 
-trait WechatService[F[_]]
+import cn.binarywang.wx.miniapp.bean.Watermark
 
-object WechatService {
-  final class Impl[F[_]] extends WechatService[F] {}
-}
+final case class WaterMark(timestamp: String, appid: String)
+
+object WaterMark:
+
+  def apply(jxObject: Watermark): Option[WaterMark] = {
+    if (jxObject == null) None
+    else Some(new WaterMark(jxObject.getTimestamp, jxObject.getAppid))
+  }

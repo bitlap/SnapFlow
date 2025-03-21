@@ -15,30 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package snapflow.service
+package snapflow.model.exception
 
-import org.typelevel.log4cats.Logger
-
-import cats.effect.Async
-import cats.syntax.all.*
-import snapflow.config.PostgresCfg
-import snapflow.model.UserProfile
-import snapflow.repo.UserRepository
-
-trait UserService[F[_]]:
-  def getUserById(userId: String): F[Option[UserProfile]]
-
-object UserService {
-
-  final class Impl[F[_]: Async](
-    wechatService: WechatMiniService[F],
-    userRepository: UserRepository[F],
-    cfg: PostgresCfg,
-    log: Logger[F]
-  ) extends UserService[F] {
-
-    override def getUserById(userId: String): F[Option[UserProfile]] =
-      log.info(userId + "config:" + cfg.toString) *> userRepository.getUserById(userId)
-
-  }
-}
+sealed trait SnapFlowException extends Throwable with Product

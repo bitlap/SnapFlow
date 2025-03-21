@@ -54,7 +54,7 @@ object AppModule {
       make[HomeService[F]].from[HomeService.Impl[F]]
       make[UserService[F]].from[UserService.Impl[F]]
       make[PhotoService[F]].from[PhotoService.Impl[F]]
-      make[WechatService[F]].from[WechatService.Impl[F]]
+      make[WechatMiniService[F]].from[WechatMiniService.Impl[F]]
       make[UserApi[F]]
       many[HttpApi[F]].weak[UserApi[F]]
       makeTrait[Http4sDsl[F]]

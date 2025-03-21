@@ -16,6 +16,7 @@ object Dependencies {
     val distage     = "1.2.16"
     val doobie      = "1.0.0-RC8"
     val log4cats    = "2.7.0"
+    val wxMiniJava  = "4.7.0"
   }
 
   lazy val dependencies: Seq[ModuleID] = Seq(
@@ -36,10 +37,11 @@ object Dependencies {
     "io.7mind.izumi" %% "logstage-core" % Versions.distage withSources (),
 //    "io.7mind.izumi" %% "distage-extension-plugins" % Versions.distage withSources (),
 //    "io.7mind.izumi" %% "distage-framework" % Versions.distage withSources (),
-    "org.tpolecat"  %% "doobie-core"     % Versions.doobie withSources (),
-    "org.tpolecat"  %% "doobie-postgres" % Versions.doobie withSources (),
-    "org.tpolecat"  %% "doobie-hikari"   % Versions.doobie withSources (),
-    "org.typelevel" %% "log4cats-core"   % Versions.log4cats withSources (),
-    "org.typelevel" %% "log4cats-slf4j"  % Versions.log4cats withSources ()
+    "org.tpolecat"         %% "doobie-core"         % Versions.doobie withSources (),
+    "org.tpolecat"         %% "doobie-postgres"     % Versions.doobie withSources (),
+    "org.tpolecat"         %% "doobie-hikari"       % Versions.doobie withSources (),
+    "org.typelevel"        %% "log4cats-core"       % Versions.log4cats withSources (),
+    "org.typelevel"        %% "log4cats-slf4j"      % Versions.log4cats withSources (),
+    "com.github.binarywang" % "weixin-java-miniapp" % Versions.wxMiniJava withSources ()
   )
 }

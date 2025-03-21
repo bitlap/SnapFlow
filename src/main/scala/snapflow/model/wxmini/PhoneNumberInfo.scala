@@ -15,30 +15,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package snapflow.service
+package snapflow.model.wxmini
 
-import org.typelevel.log4cats.Logger
+import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo
 
-import cats.effect.Async
-import cats.syntax.all.*
-import snapflow.config.PostgresCfg
-import snapflow.model.UserProfile
-import snapflow.repo.UserRepository
+final case class PhoneNumberInfo(
+  phoneNumber: String,
+  purePhoneNumber: String,
+  countryCode: String,
+  watermark: Option[WaterMark]
+)
 
-trait UserService[F[_]]:
-  def getUserById(userId: String): F[Option[UserProfile]]
+object PhoneNumberInfo:
 
-object UserService {
-
-  final class Impl[F[_]: Async](
-    wechatService: WechatMiniService[F],
-    userRepository: UserRepository[F],
-    cfg: PostgresCfg,
-    log: Logger[F]
-  ) extends UserService[F] {
-
-    override def getUserById(userId: String): F[Option[UserProfile]] =
-      log.info(userId + "config:" + cfg.toString) *> userRepository.getUserById(userId)
-
-  }
-}
+  def apply(jxObject: WxMaPhoneNumberInfo): PhoneNumberInfo =
+    new PhoneNumberInfo(
+      jxObject.getPhoneNumber,
+      jxObject.getPurePhoneNumber,
+      jxObject.getCountryCode,
+      WaterMark(jxObject.getWatermark)
+    )
