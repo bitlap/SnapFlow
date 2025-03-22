@@ -28,8 +28,8 @@ final case class UserInfo(
   province: String,
   country: String,
   avatarUrl: String,
-  unionId: Option[String],
-  watermark: Option[WaterMark]
+  unionId: String,
+  watermark: WaterMark
 )
 
 object UserInfo:
@@ -43,6 +43,6 @@ object UserInfo:
       jxObject.getProvince,
       jxObject.getCountry,
       jxObject.getAvatarUrl,
-      Option(jxObject.getUnionId),
+      jxObject.getUnionId,
       WaterMark(jxObject.getWatermark)
     )

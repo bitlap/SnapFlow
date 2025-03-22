@@ -23,7 +23,6 @@ final case class WaterMark(timestamp: String, appid: String)
 
 object WaterMark:
 
-  def apply(jxObject: Watermark): Option[WaterMark] = {
-    if (jxObject == null) None
-    else Some(new WaterMark(jxObject.getTimestamp, jxObject.getAppid))
+  def apply(jxObject: Watermark): WaterMark = {
+    new WaterMark(jxObject.getTimestamp, jxObject.getAppid)
   }

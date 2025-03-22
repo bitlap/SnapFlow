@@ -23,7 +23,7 @@ final case class PhoneNumberInfo(
   phoneNumber: String,
   purePhoneNumber: String,
   countryCode: String,
-  watermark: Option[WaterMark]
+  watermark: WaterMark
 )
 
 object PhoneNumberInfo:
