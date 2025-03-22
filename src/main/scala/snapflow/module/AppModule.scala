@@ -35,7 +35,7 @@ import izumi.fundamentals.platform.integration.PortCheck
 import pureconfig.*
 import pureconfig.{ ConfigObjectSource, ConfigSource }
 import snapflow.{ service, HttpServer }
-import snapflow.api.{ HttpApi, UserApi }
+import snapflow.api.{ HttpApi, WxMiniUserApi }
 import snapflow.config.*
 import snapflow.repo.UserRepository
 import snapflow.service.*
@@ -54,11 +54,11 @@ object AppModule {
 
     def apis[F[_]: {TagK, Async}]: ModuleDef = new ModuleDef {
       make[HomeService[F]].from[HomeService.Impl[F]]
-      make[UserService[F]].from[UserService.Impl[F]]
+      make[WxMiniUserService[F]].from[WxMiniUserService.Impl[F]]
       make[PhotoService[F]].from[PhotoService.Impl[F]]
       make[WxMiniService[F]].from[WxMiniService.Impl[F]]
-      make[UserApi[F]]
-      many[HttpApi[F]].weak[UserApi[F]]
+      make[WxMiniUserApi[F]]
+      many[HttpApi[F]].weak[WxMiniUserApi[F]]
       makeTrait[Http4sDsl[F]]
 
       addImplicit[Async[F]]
@@ -87,7 +87,7 @@ object AppModule {
 
     def utils[F[_]: {TagK, Sync}]: ModuleDef = new ModuleDef {
       make[Logger[F]].from(Slf4jLogger.getLogger[F])
-      make[WxService].fromResource[WxService.Impl[F]]
+      make[WxMiniMaService].fromResource[WxMiniMaService.Impl[F]]
     }
   }
 }

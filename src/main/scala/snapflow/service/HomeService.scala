@@ -21,5 +21,5 @@ trait HomeService[F[_]] {}
 
 object HomeService {
 
-  final class Impl[F[_]](userService: UserService[F]) extends HomeService[F] {}
+  final class Impl[F[_]](userService: WxMiniUserService[F]) extends HomeService[F] {}
 }

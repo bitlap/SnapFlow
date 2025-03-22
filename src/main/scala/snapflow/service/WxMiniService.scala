@@ -51,7 +51,7 @@ trait WxMiniService[F[_]]:
 
 object WxMiniService {
 
-  final class Impl[F[_]](wxService: WxService)(implicit F: Sync[F]) extends WxMiniService[F] {
+  final class Impl[F[_]](wxService: WxMiniMaService)(implicit F: Sync[F]) extends WxMiniService[F] {
     private final lazy val wxMaService = wxService.underlying
 
     override def wxUserSafelyOps[A](wxCall: () => A): F[A] = {

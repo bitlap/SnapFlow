@@ -20,5 +20,5 @@ package snapflow.service
 trait PhotoService[F[_]]
 
 object PhotoService {
-  final class Impl[F[_]](userService: UserService[F]) extends PhotoService[F] {}
+  final class Impl[F[_]](userService: WxMiniUserService[F]) extends PhotoService[F] {}
 }

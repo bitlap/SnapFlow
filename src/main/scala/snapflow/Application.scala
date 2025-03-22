@@ -22,7 +22,7 @@ import distage.{ Activation, Injector, Roots }
 import izumi.distage.model.definition.Module
 import izumi.functional.lifecycle.Lifecycle
 import snapflow.module.AppModule
-import snapflow.service.WxService
+import snapflow.service.WxMiniMaService
 
 object Application extends IOApp.Simple {
   private val injector       = Injector[IO]()
@@ -36,7 +36,7 @@ object Application extends IOApp.Simple {
 
     locatorLifeCycle.use { locator =>
       val server    = locator.get[HttpServer]
-      val wxService = locator.get[WxService]
+      val wxService = locator.get[WxMiniMaService]
       IO.println(s"Server Has Started at ${server.server.address}") *>
         IO.println(f"Start server with WxConfig:{wxService.underlying.getWxMaConfig.toString}")
         *> IO.never

@@ -28,9 +28,9 @@ import izumi.distage.model.definition.Lifecycle
 import snapflow.HttpServer
 import snapflow.config.WxMiniCfg
 
-final case class WxService(underlying: WxMaService)
+final case class WxMiniMaService(underlying: WxMaService)
 
-object WxService {
+object WxMiniMaService {
 
   private def createWxServiceImpl(wxConfig: WxMiniCfg): WxMaServiceImpl = {
     val maService = new WxMaServiceImpl
@@ -53,9 +53,9 @@ object WxService {
   }
 
   final class Impl[F[_]](wxConfig: WxMiniCfg)(implicit F: Sync[F])
-      extends Lifecycle.Of[F, WxService](
+      extends Lifecycle.Of[F, WxMiniMaService](
         Lifecycle.fromCats {
-          Resource.eval(F.blocking(WxService(createWxServiceImpl(wxConfig))))
+          Resource.eval(F.blocking(WxMiniMaService(createWxServiceImpl(wxConfig))))
         }
       )
 

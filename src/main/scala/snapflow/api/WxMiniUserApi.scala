@@ -15,30 +15,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package snapflow.service
+package snapflow.api
 
-import org.typelevel.log4cats.Logger
+import org.http4s.HttpRoutes
+import org.http4s.circe.*
+import org.http4s.dsl.Http4sDsl
 
-import cats.effect.Async
+import cats.effect.Concurrent
 import cats.syntax.all.*
-import snapflow.config.PostgresCfg
+import io.circe.syntax.*
 import snapflow.model.UserProfile
-import snapflow.repo.UserRepository
+import snapflow.service.WxMiniUserService
 
-trait UserService[F[_]]:
-  def getUserById(userId: String): F[Option[UserProfile]]
+final class WxMiniUserApi[F[_]: Concurrent](
+  dsl: Http4sDsl[F[_]],
+  userService: WxMiniUserService[F]
+) extends HttpApi[F] {
 
-object UserService {
+  import dsl.*
 
-  final class Impl[F[_]: Async](
-    wechatService: WxMiniService[F],
-    userRepository: UserRepository[F],
-    cfg: PostgresCfg,
-    log: Logger[F]
-  ) extends UserService[F] {
-
-    override def getUserById(userId: String): F[Option[UserProfile]] =
-      log.info(userId + "config:" + cfg.toString) *> userRepository.getUserById(userId)
-
+  override def http: HttpRoutes[F[_]] = {
+    HttpRoutes.of { case GET -> Root / "profile" / userId =>
+      Ok(userService.getUserById(userId).map(_.asJson))
+    }
   }
 }
